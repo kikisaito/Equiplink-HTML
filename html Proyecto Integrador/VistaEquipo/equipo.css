@@ -1,0 +1,259 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    color: #2d3748;
+}
+
+.navbar {
+    background-color: #002f5f;
+    color: white;
+    padding: 12px 0;
+    border-bottom: 1px solid #004a94;
+}
+
+.navbar-container {
+    width: 95%;
+    max-width: 1500px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 24px;
+    color: white;
+    text-decoration: none;
+}
+
+.logo-icon { height: 28px; }
+
+.search-container {
+    position: relative;
+}
+
+.search-container input {
+    background-color: #f1f3f5;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    width: 350px;
+    font-size: 16px;
+    padding-right: 45px;
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 24px;
+    cursor: pointer;
+}
+
+.main-container {
+    width: 95%;
+    max-width: 1500px;
+    margin: 30px auto;
+}
+
+.product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 20px;
+}
+
+.product-title {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.cart-icon {
+    height: 32px;
+}
+
+.product-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.image-gallery {
+    display: flex;
+    gap: 20px;
+}
+
+.thumbnails {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.thumbnail {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.thumbnail:hover, .thumbnail.active {
+    border-color: #0056b3;
+}
+
+.main-image-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+#mainImage {
+    max-width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+}
+
+.product-info-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.product-info-box {
+    border: 2px solid #1a202c;
+    border-radius: 16px;
+    padding: 25px;
+}
+
+.product-info-box h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.product-info-box p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.product-info-box h3 {
+    font-size: 18px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.product-info-box ul {
+    list-style: none;
+    padding-left: 5px;
+}
+
+.product-info-box li {
+    margin-bottom: 8px;
+}
+
+.check-mark {
+    color: #2f855a;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.pricing-box {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.current-price {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a202c;
+}
+
+.list-price {
+    display: block;
+    font-size: 14px;
+    color: #718096;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-buy, .btn-add-to-cart {
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.btn-buy {
+    background-color: #70c900;
+    color: #002f5f;
+}
+.btn-buy:hover {
+    background-color: #86e800;
+}
+
+.btn-add-to-cart {
+    background-color: #e2e8f0;
+    color: #2d3748;
+}
+.btn-add-to-cart:hover {
+    background-color: #cbd5e0;
+}
+
+.product-rating {
+    text-align: center;
+    font-size: 24px;
+    color: #a0aec0;
+}
+
+@media (max-width: 1200px) {
+    .product-details-grid {
+        grid-template-columns: 1fr;
+    }
+    .product-info-column {
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .image-gallery {
+        flex-direction: column-reverse;
+    }
+    .thumbnails {
+        flex-direction: row;
+        justify-content: center;
+    }
+    .pricing-box {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .action-buttons {
+        width: 100%;
+        flex-direction: column;
+    }
+}
