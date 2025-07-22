@@ -1,74 +1,113 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EquipLink</title>
-  <link rel="stylesheet" href="visUsuario.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Equipos Médicos - EquipoLink</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="visUsuario.css">
 </head>
 <body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <a href="visUsuario.html">
+                    <img src="imagenes/logo.png" alt="EquipoLink Logo">
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/html Proyecto Integrador/Landing/landingPage.html">Inicio</a></li>
+                    <li><a href="#">Catálogo</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Acerca de</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <button id="loginCompanyBtn" class="btn-login">Iniciar Sesión (Compañía)</button>
+                <button id="logoutBtn" class="btn-register hidden">Cerrar Sesión</button>
+                <a href="#" class="btn-login hidden-on-company">Iniciar Sesión</a>
+                <a href="#" class="btn-register hidden-on-company">Registrarse</a>
+            </div>
+        </div>
+    </header>
 
-  <div class="navbar">
-    <div class="logo">
-        <img src="/Imagenes/Logo.png" alt="EquipLink Logo">
-        <span>EquipLink</span>
+    <main>
+        <section class="hero">
+            <h1>Encuentra el Equipo Médico que Necesitas</h1>
+            <p>Conecta con los mejores proveedores de equipo médico y equipamiento de calidad.</p>
+        </section>
+
+        <section class="catalogo-section">
+            <h2>Nuestros Equipos Disponibles</h2>
+            <button id="addEquipoBtn" class="btn-primary add-button hidden">
+                <i class="fas fa-plus-circle"></i> Agregar Nuevo Equipo
+            </button>
+            <div class="content-wrapper">
+                <aside class="filtros">
+                    <h3>Filtros</h3>
+                    <div class="filtro-grupo">
+                        <h4>Rango de precio</h4>
+                        <div class="precio-inputs">
+                            <input type="number" id="minPrice" placeholder="Mín." step="0.01">
+                            <input type="number" id="maxPrice" placeholder="Máx." step="0.01">
+                        </div>
+                        <button id="aplicarPrecioFiltro" class="btn-primary">Aplicar</button>
+                    </div>
+                    <div class="filtro-grupo">
+                        <h4>Tipo de equipamiento</h4>
+                        <select id="tipoEquipoFiltro">
+                            <option value="">Todos</option>
+                            </select>
+                    </div>
+                    <button id="clearFilters" class="btn-secondary-outline">Limpiar Filtros</button>
+                </aside>
+
+                <div class="catalogo">
+                    <p>Cargando equipos médicos...</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 EquipoLink. Todos los derechos reservados.</p>
+    </footer>
+
+    <div id="equipoModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 id="modalTitle">Agregar Nuevo Equipo</h3>
+            <form id="equipoForm">
+                <input type="hidden" id="equipoId"> <label for="nombreEquipo">Nombre del Equipo:</label>
+                <input type="text" id="nombreEquipo" required>
+
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" rows="3" required></textarea>
+
+                <label for="precio">Precio:</label>
+                <input type="number" id="precio" step="0.01" required>
+
+                <label for="estado">Estado:</label>
+                <input type="text" id="estado" placeholder="Ej: Nuevo, Usado, Reacondicionado" required>
+
+                <label for="imagenUrl">URL de la Imagen:</label>
+                <input type="url" id="imagenUrl" placeholder="http://ejemplo.com/imagen.jpg" required>
+
+                <label for="proveedorId">ID Proveedor:</label>
+                <input type="number" id="proveedorId" required>
+
+                <label for="tipoEquipoId">ID Tipo Equipo:</label>
+                <input type="number" id="tipoEquipoId" required>
+
+                <label for="marcaId">ID Marca:</label>
+                <input type="number" id="marcaId" required>
+
+                <button type="submit" class="btn-primary">Guardar Equipo</button>
+            </form>
+        </div>
     </div>
-    <div class="nav-links">
-      <a href="#">Explorar</a>
-      <a href="#">Navegar</a>
-      <a href="#">Nuevo</a>
-      <a href="#">Acerca de</a>
-      <a href="#">Contacto</a>
-      <a href="register.html" class="registro">Registrarse</a>
-    </div>
-  </div>
 
-  <div class="contenedor">
-    <aside class="filtros">
-      <h4>Filtros</h4>
-      <p>Rango de precio</p>
-      <p>Tipo de equipamiento</p>
-    </aside>
-
-    <section class="catalogo">
-
-      <div class="producto">
-        <img src="imagenes/rayos.png" alt="Digital X-Ray">
-        <p>Digital X-Ray Machine</p>
-        <span>$1,500</span>
-      </div>
-
-      <div class="producto">
-        <img src="imagenes/mri.png" alt="MRI Scanner">
-        <p>MRI Scanner</p>
-        <span>$1,550</span>
-      </div>
-
-      <div class="producto">
-        <img src="imagenes/ultrasound.png" alt="Ultrasound">
-        <p>Ultrasound System</p>
-        <span>$1,490</span>
-      </div>
-
-      <div class="producto">
-        <img src="imagenes/ct.png" alt="CT Scanner">
-        <p>CT Scanner</p>
-        <span>$4,990</span>
-      </div>
-
-      <div class="producto">
-        <img src="imagenes/carm.png" alt="C-Arm">
-        <p>C-Arm Machine</p>
-        <span>$9,900</span>
-      </div>
-
-      <div class="producto">
-        <img src="imagenes/portatil.png" alt="Portable X-Ray">
-        <p>Portable X-Ray Machine</p>
-        <span>$2,990</span>
-      </div>
-    </section>
-  </div>
-
+    <script src="visUsuario.js"></script>
 </body>
 </html>
