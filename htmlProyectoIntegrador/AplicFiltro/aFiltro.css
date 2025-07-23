@@ -1,0 +1,229 @@
+body {
+    font-family: 'Inter', sans-serif; 
+}
+
+.btn-abrir-filtro {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 50px;
+}
+
+.modal-fondo {
+  display: none; 
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.filtro-modal-contenido {
+    background-color: #fff;
+    color: #111;
+    border-radius: 24px;
+    padding: 24px;
+    width: 90%;
+    max-width: 380px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative; 
+    overflow: hidden; 
+}
+
+.filtro-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.filtro-header h2 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.filtro-header .cerrar-btn {
+    font-size: 28px;
+    color: #888;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.filtro-seccion {
+    margin-bottom: 24px;
+}
+
+.filtro-seccion > label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #555;
+}
+
+.range-slider {
+    position: relative;
+    height: 4px;
+    background-color: #e0e0e0;
+    margin: 20px 10px;
+}
+.slider-thumb {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background-color: #222;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.precio-inputs {
+    display: flex;
+    gap: 16px;
+}
+.input-container {
+    flex: 1;
+}
+.input-container label {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+    display: block;
+}
+.input-container input {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.tipo-equipo-opciones {
+    display: flex;
+    gap: 12px;
+}
+.btn-equipo {
+    flex: 1;
+    aspect-ratio: 1 / 1;
+    background-color: #f5f5f5;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+    transition: background-color 0.2s;
+}
+.btn-equipo:hover {
+    background-color: #e9e9e9;
+}
+.btn-equipo.activo {
+    background-color: #d4f0b6; 
+}
+.btn-equipo svg {
+    width: 40px;
+    height: 40px;
+}
+
+.spec-input-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+.spec-input-group input[type="number"] {
+    width: 70px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+}
+.spec-input-group label {
+    font-size: 14px;
+    color: #333;
+}
+
+.filtro-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    margin-top: 24px;
+}
+.btn-limpiar {
+    background: #f0f0f0;
+    border: none;
+    color: #555;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 12px 20px;
+    border-radius: 20px;
+}
+.btn-aplicar {
+    background-color: #70c900;
+    color: #000; 
+    border: none;
+    font-weight: bold;
+    padding: 14px 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.confirmacion-overlay {
+    display: none; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30, 30, 30, 0.9);
+    z-index: 10;
+    
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+.confirmacion-overlay h3 {
+    color: white;
+    font-size: 24px;
+    margin: 0;
+    text-align: center;
+    font-weight: 500;
+}
+.confirmacion-botones {
+    display: flex;
+    gap: 16px;
+}
+.btn-confirmacion {
+    padding: 14px 50px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-confirmacion.si {
+    background-color: #70c900;
+    color: white;
+}
+.btn-confirmacion.no {
+    background-color: #70c900;
+    color: white;
+}

@@ -1,0 +1,211 @@
+/* --- Variables de Color (Asegúrate de que estas o equivalentes estén definidas en tu styles.css principal) --- */
+
+:root {
+    --primary-color: #6272A4;
+    --secondary-color: #BD93F9;
+    --accent-cyan: #8BE9FD;
+    --accent-green: #50FA7B;
+    --accent-pink: #FF79C6;
+    --accent-red: #FF5555;
+    
+    --bg-dark: #282A36;
+    --bg-medium: #343746;
+    --bg-light: #44475A;
+
+    --text-primary: #F8F8F2;
+    --text-secondary: #BD93F9;
+
+    --border-color: #6272A4;
+    --shadow-light: rgba(0, 0, 0, 0.2);
+    --shadow-medium: rgba(0, 0, 0, 0.4);
+    --shadow-strong: rgba(0, 0, 0, 0.6);
+}
+
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.modal-fondo {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-fondo.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-login {
+    background-color: var(--bg-light);
+    padding: 2.5rem 3rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 10px 30px var(--shadow-strong);
+    text-align: center;
+    position: relative;
+    border: 1px solid var(--border-color);
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.modal-fondo.active .modal-login {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.cerrar-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--text-secondary);
+    cursor: pointer;
+    z-index: 1001;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.cerrar-modal:hover {
+    color: var(--accent-red);
+    transform: rotate(90deg);
+}
+
+.modal-login h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--accent-cyan);
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+    text-shadow: 1px 1px 3px var(--shadow-medium);
+}
+
+.modal-login label {
+    font-weight: 500;
+    display: block;
+    margin: 1rem 0 0.5rem;
+    color: var(--text-secondary);
+    text-align: left;
+    font-size: 1.05rem;
+}
+
+.modal-login input[type="email"],
+.modal-login input[type="password"] {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-medium);
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.modal-login input[type="email"]:focus,
+.modal-login input[type="password"]:focus {
+    border-color: var(--accent-pink);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 121, 198, 0.4);
+    background-color: var(--bg-dark);
+}
+
+.recordar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 1rem 0 1.5rem;
+    color: var(--text-primary);
+    justify-content: flex-start;
+}
+
+.recordar input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent-green);
+    cursor: pointer;
+}
+
+.btn-login {
+    width: 100%;
+    background-color: var(--accent-green);
+    border: none;
+    padding: 1.2rem;
+    font-weight: 700;
+    color: var(--bg-dark);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: 1.15rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px var(--shadow-light);
+}
+
+.btn-login:hover {
+    background-color: #43cd6b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px var(--shadow-medium);
+}
+
+.error {
+    color: var(--accent-red);
+    font-size: 0.85rem;
+    text-align: left;
+    margin-top: 5px;
+    display: block;
+}
+
+.olvide {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.olvide a {
+    color: var(--accent-pink);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.olvide a:hover {
+    color: #ff79c6;
+    text-decoration: underline;
+}
+
+@media (max-width: 500px) {
+    .modal-login {
+        padding: 1.5rem 2rem;
+        max-width: 95%;
+    }
+
+    .modal-login h2 {
+        font-size: 2rem;
+    }
+
+    .btn-login {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+}

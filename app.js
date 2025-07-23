@@ -429,7 +429,7 @@ class EquipLinkApp {
                 
                 setTimeout(() => {
                     if (usuario.rol === 'proveedor') {
-                        window.location.href = 'proveedor.html';
+                        window.location.href = '../htmlProyectoIntegrador/proveedor/proveedor.html';
                     } else {
                         window.location.href = 'cliente.html';
                     }
@@ -453,7 +453,7 @@ class EquipLinkApp {
 
         try {
             this.showLoading();
-            const newUser = await api.createUsuario({
+            const newUser = await api.registerUsuario({
                 nombre: name,
                 correo: email,
                 contraseña: password,
@@ -468,7 +468,7 @@ class EquipLinkApp {
             
             setTimeout(() => {
                 if (newUser.rol === 'proveedor') {
-                    window.location.href = 'proveedor.html';
+                    window.location.href = '../htmlProyectoIntegrador/proveedor/proveedor.html';
                 } else {
                     window.location.href = 'cliente.html';
                 }

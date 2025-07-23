@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Producto - EquipLink</title>
+    <link rel="stylesheet" href="equipo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="logo">
+                <span>EquipLink <strong>Marketplace</strong></span>
+                <img src="../Imagenes/Logo.png" alt="Logo Estetoscopio" class="logo-icon">
+            </a>
+            <div class="search-container">
+                <input type="text" placeholder="Buscar equipo">
+                <img src="http://www.w3.org/2000/svg" alt="Buscar" class="search-icon">
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="product-header">
+            <h1 class="product-title">Sistema de Rayos X Convencional - Mesa de Exploración</h1>
+            <a href="#" class="cart-icon-link"></a>
+        </div>
+
+        <div class="product-details-grid">
+            <div class="image-gallery">
+                <div class="thumbnails">
+                    <img src="" alt="Thumbnail 1" class="thumbnail active" onclick="changeImage(this.src)">
+                    <img src="" alt="Thumbnail 2" class="thumbnail" onclick="changeImage(this.src)">
+                    <img src="" alt="Thumbnail 3" class="thumbnail" onclick="changeImage(this.src)">
+                </div>
+                <div class="main-image-container">
+                    <img src="" alt="Imagen Principal del Producto" id="mainImage">
+                </div>
+            </div>
+
+            <div class="product-info-column">
+                <div class="product-info-box">
+                    <h2>Detalles del Producto</h2>
+                    <p><strong>Sistema de Rayos X Convencional - Mesa de Exploración</strong></p>
+                    <p>Equipo médico de diagnóstico por imagen, diseñado para realizar estudios radiológicos de alta precisión. Ideal para hospitales, clínicas y consultorios médicos que requieren un equipo confiable para radiografías generales.</p>
+                    
+                    <h3>Características principales:</h3>
+                    <ul>
+                        <li><span class="check-mark">✓</span> Estructura robusta y estable.</li>
+                        <li><span class="check-mark">✓</span> Imágenes radiográficas de alta calidad.</li>
+                        <li><span class="check-mark">✓</span> Compatible con múltiples posiciones y estudios anatómicos.</li>
+                        <li><span class="check-mark">✓</span> Ideal para exámenes de tórax, extremidades, abdomen y columna.</li>
+                        <li><strong>Garantía:</strong> 12 meses.</li>
+                        <li><strong>Incluye:</strong> Instalación básica y capacitación para el personal.</li>
+                    </ul>
+                </div>
+
+                <div class="pricing-box">
+                    <div class="price-details">
+                        <span class="current-price">$33,216.48</span>
+                        <span class="list-price">Precio de lista: $35,999.00</span>
+                    </div>
+                </div>
+
+                <div class="product-rating">
+                    <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="equipo.js"></script>
+</body>
+</html>

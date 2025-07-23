@@ -1,3 +1,5 @@
+// --- START OF FILE api.js ---
+
 class API {
     constructor() {
         this.baseURL = 'http://localhost:8000/api';
@@ -17,8 +19,11 @@ class API {
             const response = await fetch(url, config);
             
             if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
+                // --- INICIO DE MODIFICACIÓN: Manejo más robusto del errorData ---
+                // Intenta parsear el JSON del error, si falla, usa un objeto con message: null
+                const errorData = await response.json().catch(() => ({ message: null }));
                 throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+                // --- FIN DE MODIFICACIÓN ---
             }
 
             const contentType = response.headers.get('content-type');
@@ -164,12 +169,23 @@ class API {
         return this.request(`/usuarios/${id}`);
     }
 
+    // --- INICIO DE MODIFICACIÓN CLAVE PARA REGISTRO DE USUARIOS ---
+    // Método para crear/actualizar un usuario (si se usa por un admin, por ejemplo)
     async createUsuario(usuarioData) {
         return this.request('/usuarios', {
             method: 'POST',
             body: JSON.stringify(usuarioData)
         });
     }
+
+    // NUEVO MÉTODO para el registro de usuarios con la lógica de proveedor
+    async registerUsuario(usuarioData) {
+        return this.request('/usuarios/register', { // <--- ¡Esta es la URL correcta para tu lógica de backend!
+            method: 'POST',
+            body: JSON.stringify(usuarioData)
+        });
+    }
+    // --- FIN DE MODIFICACIÓN CLAVE ---
 
     async updateUsuario(id, usuarioData) {
         return this.request(`/usuarios/${id}`, {
@@ -325,4 +341,5 @@ class API {
 }
 
 // Crear instancia global de la API
-const api = new API(); 
+const api = new API();
+// --- END OF FILE api.js ---
