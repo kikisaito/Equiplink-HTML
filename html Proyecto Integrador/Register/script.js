@@ -10,7 +10,7 @@ function cerrarRegistro() {
     document.body.style.overflow = 'auto';
     limpiarErrores();
     limpiarCampos();
-    window.location.href = '../index.html'; // Redirigir a la página principal
+    window.location.href = '../index.html'; 
 }
 
 window.addEventListener('click', function(event) {
