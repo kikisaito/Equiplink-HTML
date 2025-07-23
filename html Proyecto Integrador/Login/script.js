@@ -5,7 +5,8 @@ function abrirLogin() {
 
 // Cierra el modal de login
 function cerrarLogin() {
-  document.getElementById("modalFondo").style.display = "none";
+  // document.getElementById("modalFondo").style.display = "none";
+  window.location.href = "../index.html";
 }
 
 // Valida el formulario de login
