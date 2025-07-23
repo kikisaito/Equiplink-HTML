@@ -3,92 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EquipLink - Plataforma de Equipamiento Médico</title>
+    <title>EquipLink - Plataforma de Equipos Médicos</title>
     <link rel="stylesheet" href="index.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="componentes.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-
-    <header class="navbar">
-        <div class="navbar-container">
-            <a href="#" class="logo">
-                <img src="../Imagenes/Logo.png" alt="Logo EquipLink" class="logo-img">
-                <span>EquipLink</span>
-            </a>
-            <nav class="nav-links">
-                <a href="#">Explorar</a>
-                <a href="#">Navegar</a>
-                <a href="#">Acerca de</a>
-                <a href="#">Contacto</a>
-            </nav>
-            <a href="./Register/register.html" class="btn-registrarse">Registrarse</a>
-            <a href="./Login/login.html" class="btn-login">Login</a>
-        </div>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><i class="fas fa-heartbeat"></i> EquipLink</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Inicio</a></li>
+                <li><a href="#catalog" class="nav-link">Catálogo</a></li>
+                <li><a href="#about" class="nav-link">Nosotros</a></li>
+                <li><a href="#contact" class="nav-link">Contacto</a></li>
+            </ul>
+            <div class="nav-auth">
+                <button id="loginBtn" class="btn btn-outline">Iniciar Sesión</button>
+                <button id="registerBtn" class="btn btn-primary">Registrarse</button>
+                <button id="supportBtn" class="btn btn-outline" style="display: none;" onclick="app.showSupportTicketModal()">
+                    <i class="fas fa-headset"></i> Soporte
+                </button>
+                <button id="myTicketsBtn" class="btn btn-outline" style="display: none;" onclick="app.showUserTickets()">
+                    <i class="fas fa-ticket-alt"></i> Mis Tickets
+                </button>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
     </header>
 
     <main>
-        <!-- SECCIÓN SUPERIOR (HERO) -->
-        <section class="hero-section">
-            <div class="hero-container">
-                <div class="hero-text">
-                    <h1>¿Cómo funciona EquipLink?</h1>
-                    <h3>Navegando por EquipLink</h3>
-                    <p>
-                        EquipLink es una plataforma especializada que actúa como intermediario confiable entre proveedores y compradores de equipos médicos de imagenología. Su función es facilitar el acceso a tecnología radiológica de alta calidad mediante un entorno digital seguro, eficiente y competitivo. Desde hospitales y clínicas, hasta centros de diagnóstico y profesionales independientes, todos pueden encontrar en EquipLink una solución centralizada para comparar, cotizar y adquirir equipos como rayos X, tomógrafos, resonancias magnéticas y ultrasonidos.
-                    </p>
-                    <a href="#" class="btn-verde">Conoce más</a>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Encuentra los Mejores Equipos Médicos</h1>
+                <p>Conectamos proveedores con profesionales de la salud para ofrecer equipos médicos de alta calidad</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary btn-large" onclick="document.getElementById('catalog').scrollIntoView({behavior: 'smooth'})">Explorar Catálogo</button>
+                    <button class="btn btn-outline btn-large" onclick="app.showModal('registerModal')">Ser Proveedor</button>
                 </div>
-                <div class="hero-image">
-                    <img src="../Imagenes/portadalanding.jpg" alt="Cirujanos operando con equipo de imagenología">
+            </div>
+            <div class="hero-image">
+                <div class="hero-placeholder">
+                    <i class="fas fa-stethoscope"></i>
+                    <p>Equipos Médicos de Calidad</p>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN INFERIOR (FEATURE) -->
-        <section class="feature-section">
-            <div class="feature-container">
-                <div class="feature-image">
-                    <img src="../Imagenes/radiografia_mejorada.jpg" alt="Radiografía de tórax">
+        <section id="catalog" class="catalog-section">
+            <div class="container">
+                <h2>Catálogo de Equipos</h2>
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="searchInput">Buscar:</label>
+                        <input type="text" id="searchInput" class="filter-input" placeholder="Buscar equipos...">
+                    </div>
+                    <div class="filter-group">
+                        <label for="categoryFilter">Categoría:</label>
+                        <select id="categoryFilter" class="filter-select">
+                            <option value="">Todas las categorías</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="brandFilter">Marca:</label>
+                        <select id="brandFilter" class="filter-select">
+                            <option value="">Todas las marcas</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="priceFilter">Precio:</label>
+                        <select id="priceFilter" class="filter-select">
+                            <option value="">Todos los precios</option>
+                            <option value="0-1000">$0 - $1,000</option>
+                            <option value="1000-5000">$1,000 - $5,000</option>
+                            <option value="5000-50000">$5,000 - $50,000</option>
+                            <option value="50000+">$50,000+</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="statusFilter">Estado:</label>
+                        <select id="statusFilter" class="filter-select">
+                            <option value="">Todos los estados</option>
+                            <option value="nuevo">Nuevo</option>
+                            <option value="usado">Usado</option>
+                            <option value="reacondicionado">Reacondicionado</option>
+                        </select>
+                    </div>
+                    <button id="searchBtn" class="btn btn-primary">Buscar</button>
+                    <button id="clearFiltersBtn" class="btn btn-outline">Limpiar Filtros</button>
                 </div>
-                <div class="feature-text">
-                    <h2>EquipLink y equipos de imageneología</h2>
-                    <p>
-                        EquipLink es la plataforma de referencia para adquirir equipos de radiología de alta calidad. Nuestro mercado ofrece una amplia gama de productos a precios competitivos, lo que facilita a los profesionales de la salud encontrar lo que necesitan.
-                    </p>
-                    <a href="/html Proyecto Integrador/catalogo/visUsuario.html" class="btn-verde">Explorar equipos</a>
+                
+                <div class="catalog-stats">
+                    <span id="resultsCount">0 equipos encontrados</span>
+                </div>
+                
+                <div id="equipmentGrid" class="equipment-grid">
+                    <!-- Los equipos se cargarán dinámicamente aquí -->
+                </div>
+                
+                <div id="loadingIndicator" class="loading" style="display: none;">
+                    Cargando equipos...
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2>Sobre EquipLink</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>EquipLink es la plataforma líder en la conexión entre proveedores de equipos médicos y profesionales de la salud. Nuestra misión es facilitar el acceso a equipos médicos de alta calidad.</p>
+                        <div class="features">
+                            <div class="feature">
+                                <i class="fas fa-shield-alt"></i>
+                                <h3>Calidad Garantizada</h3>
+                                <p>Todos nuestros proveedores están verificados</p>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-truck"></i>
+                                <h3>Envío Rápido</h3>
+                                <p>Entrega en todo el país</p>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-headset"></i>
+                                <h3>Soporte 24/7</h3>
+                                <p>Atención personalizada</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2>Contacto</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Información de Contacto</h3>
+                        <p><i class="fas fa-envelope"></i> info@equiplink.com</p>
+                        <p><i class="fas fa-phone"></i> +52 961-123-4567</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Tuxtla Gutiérrez, Chiapas, México</p>
+                    </div>
+                    <form class="contact-form" id="contactForm">
+                        <input type="text" id="contactName" placeholder="Nombre" required>
+                        <input type="email" id="contactEmail" placeholder="Email" required>
+                        <textarea id="contactMessage" placeholder="Mensaje" rows="5" required></textarea>
+                        <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
+                    </form>
                 </div>
             </div>
         </section>
     </main>
 
     <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-left">
-                <h4>EquipLink</h4>
-                <p>Impulsando la industria de la imageneología.</p>
-                <div class="social-icons">
-                    <a href="#"><img src="../Imagenes/logotipo-de-instagram.png"Instagram"></a>
-                    <a href="#"><img src="../Imagenes/logotipo-grande-de-whatssapp.png" alt="WhatsApp"></a>
-                    <a href="#"><img src="../Imagenes/gorjeo.png" alt="X"></a>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>EquipLink</h3>
+                    <p>Conectando el futuro de la medicina</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="#home">Inicio</a></li>
+                        <li><a href="#catalog">Catálogo</a></li>
+                        <li><a href="#about">Nosotros</a></li>
+                        <li><a href="#contact">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Redes Sociales</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
                 </div>
             </div>
-            <div class="footer-right">
-                <ul class="footer-links">
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Compañías</a></li>
-                    <li><a href="#">Productos</a></li>
-                    <li><a href="#">Carreras</a></li>
-                    <li><a href="#">Contáctanos</a></li>
-                </ul>
-                <ul class="footer-links">
-                    <li><a href="#">Política de privacidad</a></li>
-                    <li><a href="#">Servicios y condiciones</a></li>
-                </ul>
+            <div class="footer-bottom">
+                <p>&copy; 2025 EquipLink. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Modales -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form id="loginForm" class="auth-form">
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginPassword" placeholder="Contraseña" required>
+                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Registrarse</h2>
+            <form id="registerForm" class="auth-form">
+                <input type="text" id="registerName" placeholder="Nombre completo" required>
+                <input type="email" id="registerEmail" placeholder="Email" required>
+                <input type="password" id="registerPassword" placeholder="Contraseña" required>
+                <select id="registerRole" required>
+                    <option value="">Seleccionar rol</option>
+                    <option value="cliente">Cliente</option>
+                    <option value="proveedor">Proveedor</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Registrarse</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Detalles del Equipo -->
+    <div id="equipmentModal" class="modal">
+        <div class="modal-content equipment-modal">
+            <span class="close">&times;</span>
+            <div id="equipmentModalContent">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Reseña -->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Dejar Reseña</h2>
+            <form id="reviewForm" class="auth-form">
+                <div class="form-group">
+                    <label for="reviewRating">Calificación:</label>
+                    <select id="reviewRating" required>
+                        <option value="">Seleccionar calificación</option>
+                        <option value="1">1 estrella</option>
+                        <option value="2">2 estrellas</option>
+                        <option value="3">3 estrellas</option>
+                        <option value="4">4 estrellas</option>
+                        <option value="5">5 estrellas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reviewComment">Comentario:</label>
+                    <textarea id="reviewComment" placeholder="Escribe tu experiencia con este proveedor..." rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar Reseña</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Ticket de Soporte -->
+    <div id="supportTicketModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Crear Ticket de Soporte</h2>
+            <form id="supportTicketForm" class="auth-form">
+                <div class="form-group">
+                    <label for="ticketSubject">Asunto:</label>
+                    <input type="text" id="ticketSubject" placeholder="Describe brevemente tu problema..." required>
+                </div>
+                <div class="form-group">
+                    <label for="ticketMessage">Mensaje:</label>
+                    <textarea id="ticketMessage" placeholder="Describe detalladamente tu problema o consulta..." rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Crear Ticket</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Tickets del Usuario -->
+    <div id="userTicketsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Mis Tickets de Soporte</h2>
+            <div id="userTicketsContent">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
 </body>
-</html>
+</html> 

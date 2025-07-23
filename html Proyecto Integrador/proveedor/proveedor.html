@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EquipLink - Panel de Proveedor</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/proveedor.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="proveedor">
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><i class="fas fa-heartbeat"></i> EquipLink - Proveedor</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
+                <li><a href="#inventory" class="nav-link">Mi Inventario</a></li>
+                <li><a href="#add-equipment" class="nav-link">Agregar Equipo</a></li>
+                <li><a href="#categories" class="nav-link">Categorías</a></li>
+                <li><a href="#reviews" class="nav-link">Reseñas</a></li>
+                <li><a href="#support" class="nav-link">Soporte</a></li>
+                <li><a href="#profile" class="nav-link">Mi Perfil</a></li>
+            </ul>
+            <div class="nav-auth">
+                <span id="userInfo">Cargando...</span>
+                <button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="dashboard" class="dashboard-section">
+            <div class="container">
+                <h2>Dashboard de Proveedor</h2>
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-boxes"></i>
+                        <h3 id="totalEquipment">0</h3>
+                        <p>Equipos Totales</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-eye"></i>
+                        <h3 id="totalViews">0</h3>
+                        <p>Visualizaciones</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-heart"></i>
+                        <h3 id="totalFavorites">0</h3>
+                        <p>Favoritos</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-dollar-sign"></i>
+                        <h3 id="totalValue">$0</h3>
+                        <p>Valor Total</p>
+                    </div>
+                </div>
+                
+                <div class="quick-actions">
+                    <h3>Acciones Rápidas</h3>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="document.getElementById('add-equipment').scrollIntoView({behavior: 'smooth'})">
+                            <i class="fas fa-plus"></i> Agregar Equipo
+                        </button>
+                        <button class="btn btn-outline" onclick="document.getElementById('inventory').scrollIntoView({behavior: 'smooth'})">
+                            <i class="fas fa-boxes"></i> Ver Inventario
+                        </button>
+                        <button class="btn btn-outline" onclick="document.getElementById('categories').scrollIntoView({behavior: 'smooth'})">
+                            <i class="fas fa-tags"></i> Gestionar Categorías
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="inventory" class="inventory-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Mi Inventario</h2>
+                    <button class="btn btn-primary" onclick="document.getElementById('add-equipment').scrollIntoView({behavior: 'smooth'})">
+                        <i class="fas fa-plus"></i> Agregar Nuevo Equipo
+                    </button>
+                </div>
+                
+                <div class="inventory-filters">
+                    <div class="filter-group">
+                        <label for="inventorySearch">Buscar:</label>
+                        <input type="text" id="inventorySearch" class="filter-input" placeholder="Buscar en mi inventario...">
+                    </div>
+                    <div class="filter-group">
+                        <label for="inventoryStatus">Estado:</label>
+                        <select id="inventoryStatus" class="filter-select">
+                            <option value="">Todos los estados</option>
+                            <option value="nuevo">Nuevo</option>
+                            <option value="usado">Usado</option>
+                            <option value="reacondicionado">Reacondicionado</option>
+                        </select>
+                    </div>
+                    <button id="clearInventoryFilters" class="btn btn-outline">Limpiar Filtros</button>
+                </div>
+                
+                <div class="inventory-stats">
+                    <span id="inventoryCount">0 equipos en inventario</span>
+                </div>
+                
+                <div id="inventoryGrid" class="equipment-grid">
+                    <!-- El inventario se cargará dinámicamente aquí -->
+                </div>
+                
+                <div id="inventoryLoading" class="loading" style="display: none;">
+                    Cargando inventario...
+                </div>
+            </div>
+        </section>
+
+        <section id="add-equipment" class="add-equipment-section">
+            <div class="container">
+                <h2>Agregar Nuevo Equipo</h2>
+                <form id="addEquipmentForm" class="equipment-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="equipmentName">Nombre del Equipo *</label>
+                            <input type="text" id="equipmentName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="equipmentDescription">Descripción</label>
+                            <textarea id="equipmentDescription" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="equipmentPrice">Precio *</label>
+                            <input type="number" id="equipmentPrice" step="0.01" min="0" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="equipmentStatus">Estado *</label>
+                            <select id="equipmentStatus" required>
+                                <option value="">Seleccionar estado</option>
+                                <option value="nuevo">Nuevo</option>
+                                <option value="usado">Usado</option>
+                                <option value="reacondicionado">Reacondicionado</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="equipmentCategory">Categoría *</label>
+                            <select id="equipmentCategory" required>
+                                <option value="">Seleccionar categoría</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="equipmentBrand">Marca *</label>
+                            <select id="equipmentBrand" required>
+                                <option value="">Seleccionar marca</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="equipmentImage">URL de Imagen</label>
+                            <input type="url" id="equipmentImage" placeholder="https://ejemplo.com/imagen.jpg">
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Guardar Equipo
+                        </button>
+                        <button type="reset" class="btn btn-outline">
+                            <i class="fas fa-undo"></i> Limpiar Formulario
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+
+
+        <section id="categories" class="categories-section">
+            <div class="container">
+                <h2>Gestión de Categorías y Marcas</h2>
+                <div class="management-tabs">
+                    <button class="tab-btn active" onclick="app.showCategoriesTab()">Categorías</button>
+                    <button class="tab-btn" onclick="app.showBrandsTab()">Marcas</button>
+                </div>
+                
+                <div id="categoriesTab" class="tab-content active">
+                    <div class="section-header">
+                        <h3>Categorías de Equipos</h3>
+                        <button class="btn btn-primary" onclick="app.showAddCategoryModal()">
+                            <i class="fas fa-plus"></i> Agregar Categoría
+                        </button>
+                    </div>
+                    <div id="categoriesList" class="items-list">
+                        <!-- Las categorías se cargarán dinámicamente aquí -->
+                    </div>
+                </div>
+                
+                <div id="brandsTab" class="tab-content">
+                    <div class="section-header">
+                        <h3>Marcas de Equipos</h3>
+                        <button class="btn btn-primary" onclick="app.showAddBrandModal()">
+                            <i class="fas fa-plus"></i> Agregar Marca
+                        </button>
+                    </div>
+                    <div id="brandsList" class="items-list">
+                        <!-- Las marcas se cargarán dinámicamente aquí -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews" class="reviews-section">
+            <div class="container">
+                <h2>Reseñas Recibidas</h2>
+                <div class="reviews-stats">
+                    <div class="review-stat">
+                        <i class="fas fa-star"></i>
+                        <h3 id="averageRating">0.0</h3>
+                        <p>Calificación Promedio</p>
+                    </div>
+                    <div class="review-stat">
+                        <i class="fas fa-comments"></i>
+                        <h3 id="totalReviews">0</h3>
+                        <p>Total de Reseñas</p>
+                    </div>
+                    <div class="review-stat">
+                        <i class="fas fa-thumbs-up"></i>
+                        <h3 id="positiveReviews">0</h3>
+                        <p>Reseñas Positivas</p>
+                    </div>
+                </div>
+                
+                <div class="reviews-filters">
+                    <div class="filter-group">
+                        <label for="reviewRatingFilter">Filtrar por calificación:</label>
+                        <select id="reviewRatingFilter" class="filter-select">
+                            <option value="">Todas las calificaciones</option>
+                            <option value="5">5 estrellas</option>
+                            <option value="4">4 estrellas</option>
+                            <option value="3">3 estrellas</option>
+                            <option value="2">2 estrellas</option>
+                            <option value="1">1 estrella</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div id="reviewsList" class="reviews-list">
+                    <!-- Las reseñas se cargarán dinámicamente aquí -->
+                </div>
+                
+                <div id="noReviews" class="no-results" style="display: none;">
+                    <i class="fas fa-star"></i>
+                    <p>No has recibido reseñas aún</p>
+                    <p>Continúa ofreciendo excelente servicio para recibir reseñas</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="support" class="support-section">
+            <div class="container">
+                <h2>Gestión de Tickets de Soporte</h2>
+                <div class="support-content">
+                    <div class="support-info">
+                        <h3>Panel de Gestión de Tickets</h3>
+                        <p>Aquí puedes gestionar todos los tickets de soporte de los clientes. Responde y actualiza el estado de los tickets para brindar un excelente servicio.</p>
+                        <div class="support-stats">
+                            <div class="support-stat">
+                                <i class="fas fa-ticket-alt"></i>
+                                <span>Tickets pendientes: <span id="pendingTickets">0</span></span>
+                            </div>
+                            <div class="support-stat">
+                                <i class="fas fa-clock"></i>
+                                <span>En proceso: <span id="inProcessTickets">0</span></span>
+                            </div>
+                            <div class="support-stat">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Resueltos: <span id="resolvedTickets">0</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="support-actions">
+                        <button class="btn btn-primary" onclick="app.showAllTickets()">
+                            <i class="fas fa-list"></i> Ver Todos los Tickets
+                        </button>
+                        <button class="btn btn-outline" onclick="app.showPendingTickets()">
+                            <i class="fas fa-exclamation"></i> Tickets Pendientes
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="allTicketsList" class="tickets-list" style="display: none;">
+                    <h3>Todos los Tickets de Soporte</h3>
+                    <div class="tickets-header">
+                        <div class="tickets-filters">
+                            <select id="ticketStatusFilter" onchange="app.filterTickets()">
+                                <option value="">Todos los estados</option>
+                                <option value="pendiente">Pendiente</option>
+                                <option value="en_proceso">En Proceso</option>
+                                <option value="resuelto">Resuelto</option>
+                            </select>
+                        </div>
+                        <div class="tickets-stats">
+                            <span id="totalTickets">0</span> tickets totales
+                        </div>
+                    </div>
+                    <div id="allTicketsContent">
+                        <!-- Los tickets se cargarán dinámicamente aquí -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="profile" class="profile-section">
+            <div class="container">
+                <h2>Mi Perfil de Proveedor</h2>
+                <div class="profile-content">
+                    <div class="profile-info">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <div class="profile-details">
+                            <h3 id="profileName">Nombre del Proveedor</h3>
+                            <p><i class="fas fa-envelope"></i> <span id="profileEmail">email@ejemplo.com</span></p>
+                            <p><i class="fas fa-user-tag"></i> <span id="profileRole">Proveedor</span></p>
+                            <p><i class="fas fa-calendar"></i> Miembro desde <span id="profileDate">2024</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <h3>Acciones de Cuenta</h3>
+                        <button class="btn btn-outline" onclick="app.showChangePasswordModal()">
+                            <i class="fas fa-key"></i> Cambiar Contraseña
+                        </button>
+                        <button class="btn btn-outline" onclick="app.showContactSupport()">
+                            <i class="fas fa-headset"></i> Contactar Soporte
+                        </button>
+                        <button class="btn btn-outline" onclick="app.showProviderSettings()">
+                            <i class="fas fa-cog"></i> Configuración de Proveedor
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>EquipLink</h3>
+                    <p>Conectando el futuro de la medicina</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="#dashboard">Dashboard</a></li>
+                        <li><a href="#inventory">Inventario</a></li>
+                        <li><a href="#add-equipment">Agregar Equipo</a></li>
+                        <li><a href="#analytics">Analytics</a></li>
+                        <li><a href="#profile">Perfil</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Redes Sociales</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 EquipLink. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Edición de Equipo -->
+    <div id="editEquipmentModal" class="modal">
+        <div class="modal-content equipment-modal">
+            <span class="close">&times;</span>
+            <h2>Editar Equipo</h2>
+            <form id="editEquipmentForm" class="equipment-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="editEquipmentName">Nombre del Equipo *</label>
+                        <input type="text" id="editEquipmentName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editEquipmentDescription">Descripción</label>
+                        <textarea id="editEquipmentDescription" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editEquipmentPrice">Precio *</label>
+                        <input type="number" id="editEquipmentPrice" step="0.01" min="0" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editEquipmentStatus">Estado *</label>
+                        <select id="editEquipmentStatus" required>
+                            <option value="nuevo">Nuevo</option>
+                            <option value="usado">Usado</option>
+                            <option value="reacondicionado">Reacondicionado</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editEquipmentCategory">Categoría *</label>
+                        <select id="editEquipmentCategory" required>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editEquipmentBrand">Marca *</label>
+                        <select id="editEquipmentBrand" required>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editEquipmentImage">URL de Imagen</label>
+                        <input type="url" id="editEquipmentImage">
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Actualizar Equipo
+                    </button>
+                    <button type="button" class="btn btn-outline" onclick="app.hideAllModals()">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Cambio de Contraseña -->
+    <div id="changePasswordModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Cambiar Contraseña</h2>
+            <form id="changePasswordForm" class="auth-form">
+                <input type="password" id="currentPassword" placeholder="Contraseña actual" required>
+                <input type="password" id="newPassword" placeholder="Nueva contraseña" required>
+                <input type="password" id="confirmPassword" placeholder="Confirmar nueva contraseña" required>
+                <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación de Eliminación -->
+    <div id="deleteConfirmModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Confirmar Eliminación</h2>
+            <p>¿Estás seguro de que quieres eliminar este equipo? Esta acción no se puede deshacer.</p>
+            <div class="modal-actions">
+                <button id="confirmDelete" class="btn btn-error">Eliminar</button>
+                <button class="btn btn-outline" onclick="app.hideAllModals()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Ticket de Soporte -->
+    <div id="supportTicketModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Crear Ticket de Soporte</h2>
+            <form id="supportTicketForm" class="auth-form">
+                <div class="form-group">
+                    <label for="ticketSubject">Asunto:</label>
+                    <input type="text" id="ticketSubject" placeholder="Describe brevemente tu problema..." required>
+                </div>
+                <div class="form-group">
+                    <label for="ticketMessage">Mensaje:</label>
+                    <textarea id="ticketMessage" placeholder="Describe detalladamente tu problema o consulta..." rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Crear Ticket</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Gestión de Ticket -->
+    <div id="manageTicketModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Gestionar Ticket</h2>
+            <div id="ticketDetails">
+                <!-- Detalles del ticket -->
+            </div>
+            <div class="ticket-management">
+                <h3>Actualizar Estado</h3>
+                <div class="form-group">
+                    <label for="ticketStatus">Estado:</label>
+                    <select id="ticketStatus" onchange="app.updateTicketStatus()">
+                        <option value="pendiente">Pendiente</option>
+                        <option value="en_proceso">En Proceso</option>
+                        <option value="resuelto">Resuelto</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ticketResponse">Respuesta:</label>
+                    <textarea id="ticketResponse" placeholder="Escribe tu respuesta al cliente..." rows="4"></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="app.saveTicketResponse()">
+                    <i class="fas fa-save"></i> Guardar Cambios
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Tickets del Usuario -->
+    <div id="userTicketsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Mis Tickets de Soporte</h2>
+            <div id="userTicketsContent">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Agregar Categoría -->
+    <div id="addCategoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Agregar Nueva Categoría</h2>
+            <form id="addCategoryForm" class="auth-form">
+                <div class="form-group">
+                    <label for="categoryName">Nombre de la Categoría:</label>
+                    <input type="text" id="categoryName" placeholder="Ej: Equipos de Diagnóstico" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar Categoría</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Agregar Marca -->
+    <div id="addBrandModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Agregar Nueva Marca</h2>
+            <form id="addBrandForm" class="auth-form">
+                <div class="form-group">
+                    <label for="brandName">Nombre de la Marca:</label>
+                    <input type="text" id="brandName" placeholder="Ej: Philips" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar Marca</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Editar Categoría -->
+    <div id="editCategoryModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Editar Categoría</h2>
+            <form id="editCategoryForm" class="auth-form">
+                <input type="hidden" id="editCategoryId">
+                <div class="form-group">
+                    <label for="editCategoryName">Nombre de la Categoría:</label>
+                    <input type="text" id="editCategoryName" placeholder="Ej: Equipos de Diagnóstico" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Actualizar Categoría</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Editar Marca -->
+    <div id="editBrandModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Editar Marca</h2>
+            <form id="editBrandForm" class="auth-form">
+                <input type="hidden" id="editBrandId">
+                <div class="form-group">
+                    <label for="editBrandName">Nombre de la Marca:</label>
+                    <input type="text" id="editBrandName" placeholder="Ej: Philips" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Actualizar Marca</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/proveedor.js"></script>
+</body>
+</html> 

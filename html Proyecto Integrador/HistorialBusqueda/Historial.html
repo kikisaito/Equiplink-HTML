@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Historial de Búsqueda</title>
+    <link rel="stylesheet" href=""> 
+</head>
+<body>
+    <header>
+        <h1>Gestión de Historial de Búsqueda</h1>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <h2>Registrar Nueva Búsqueda</h2>
+            <form id="historialBusquedaForm">
+                <div class="form-group">
+                    <label for="idUsuario">ID de Usuario:</label>
+                    <input type="number" id="idUsuario" required min="1">
+                </div>
+                <div class="form-group">
+                    <label for="terminoBusqueda">Término de Búsqueda:</label>
+                    <input type="text" id="terminoBusqueda" required maxlength="100">
+                </div>
+                <button type="submit" class="btn-primary">Registrar Búsqueda</button>
+            </form>
+        </section>
+
+        <section class="filter-section">
+            <h2>Filtrar y Limpiar Historial</h2>
+            <div class="form-group">
+                <label for="filterUsuarioId">Filtrar por ID de Usuario:</label>
+                <input type="number" id="filterUsuarioId" placeholder="Introduce ID de Usuario">
+                <button id="btnFilterUsuario" class="btn-primary btn-small">Buscar por Usuario</button>
+                <button id="btnClearHistorialUsuario" class="btn-danger btn-small">Limpiar Historial de Usuario</button>
+            </div>
+            <div class="form-group">
+                <label for="filterTermino">Filtrar por Término de Búsqueda:</label>
+                <input type="text" id="filterTermino" placeholder="Introduce término">
+                <button id="btnFilterTermino" class="btn-primary btn-small">Buscar por Término</button>
+                <button id="btnClearFilters" class="btn-edit btn-small">Mostrar Todo</button>
+            </div>
+        </section>
+
+        <section class="table-section">
+            <h2>Lista de Historial de Búsquedas</h2>
+            <table id="historialBusquedaTable">
+                <thead>
+                    <tr>
+                        <th>ID Búsqueda</th>
+                        <th>ID Usuario</th>
+                        <th>Término de Búsqueda</th>
+                        <th>Fecha de Búsqueda</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Mi Aplicación. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="historialBusqueda.js"></script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EquipLink - Panel de Cliente</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/cliente.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="cliente">
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><i class="fas fa-heartbeat"></i> EquipLink - Cliente</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
+                <li><a href="#catalog" class="nav-link">Catálogo</a></li>
+                <li><a href="#favorites" class="nav-link">Mis Favoritos</a></li>
+                <li><a href="#history" class="nav-link">Historial</a></li>
+                <li><a href="#support" class="nav-link">Soporte</a></li>
+                <li><a href="#profile" class="nav-link">Mi Perfil</a></li>
+            </ul>
+            <div class="nav-auth">
+                <span id="userInfo">Cargando...</span>
+                <button id="logoutBtn" class="btn btn-outline">Cerrar Sesión</button>
+            </div>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="dashboard" class="dashboard-section">
+            <div class="container">
+                <h2>Bienvenido, <span id="userName">Cliente</span></h2>
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <i class="fas fa-heart"></i>
+                        <h3 id="favoritesCount">0</h3>
+                        <p>Favoritos</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-search"></i>
+                        <h3 id="searchCount">0</h3>
+                        <p>Búsquedas</p>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-eye"></i>
+                        <h3 id="viewCount">0</h3>
+                        <p>Equipos Vistos</p>
+                    </div>
+                </div>
+                
+                <div class="quick-actions">
+                    <h3>Acciones Rápidas</h3>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="document.getElementById('catalog').scrollIntoView({behavior: 'smooth'})">
+                            <i class="fas fa-search"></i> Explorar Catálogo
+                        </button>
+                        <button class="btn btn-outline" onclick="document.getElementById('favorites').scrollIntoView({behavior: 'smooth'})">
+                            <i class="fas fa-heart"></i> Ver Favoritos
+                        </button>
+                        <button class="btn btn-outline" onclick="document.getElementById('profile').scrollIntoView({behavior: 'smooth'})">
+                            <i class="fas fa-user"></i> Mi Perfil
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="catalog" class="catalog-section">
+            <div class="container">
+                <h2>Catálogo de Equipos</h2>
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="searchInput">Buscar:</label>
+                        <input type="text" id="searchInput" class="filter-input" placeholder="Buscar equipos...">
+                    </div>
+                    <div class="filter-group">
+                        <label for="categoryFilter">Categoría:</label>
+                        <select id="categoryFilter" class="filter-select">
+                            <option value="">Todas las categorías</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="brandFilter">Marca:</label>
+                        <select id="brandFilter" class="filter-select">
+                            <option value="">Todas las marcas</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="priceFilter">Precio:</label>
+                        <select id="priceFilter" class="filter-select">
+                            <option value="">Todos los precios</option>
+                            <option value="0-1000">$0 - $1,000</option>
+                            <option value="1000-5000">$1,000 - $5,000</option>
+                            <option value="5000-50000">$5,000 - $50,000</option>
+                            <option value="50000+">$50,000+</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="statusFilter">Estado:</label>
+                        <select id="statusFilter" class="filter-select">
+                            <option value="">Todos los estados</option>
+                            <option value="nuevo">Nuevo</option>
+                            <option value="usado">Usado</option>
+                            <option value="reacondicionado">Reacondicionado</option>
+                        </select>
+                    </div>
+                    <button id="searchBtn" class="btn btn-primary">Buscar</button>
+                    <button id="clearFiltersBtn" class="btn btn-outline">Limpiar Filtros</button>
+                </div>
+                
+                <div class="catalog-stats">
+                    <span id="resultsCount">0 equipos encontrados</span>
+                </div>
+                
+                <div id="equipmentGrid" class="equipment-grid">
+                    <!-- Los equipos se cargarán dinámicamente aquí -->
+                </div>
+                
+                <div id="loadingIndicator" class="loading" style="display: none;">
+                    Cargando equipos...
+                </div>
+            </div>
+        </section>
+
+        <section id="favorites" class="favorites-section">
+            <div class="container">
+                <h2>Mis Favoritos</h2>
+                <div id="favoritesGrid" class="equipment-grid">
+                    <!-- Los favoritos se cargarán dinámicamente aquí -->
+                </div>
+                <div id="noFavorites" class="no-results" style="display: none;">
+                    <i class="fas fa-heart"></i>
+                    <p>No tienes equipos favoritos</p>
+                    <p>Explora el catálogo y agrega equipos a tus favoritos</p>
+                    <button class="btn btn-primary" onclick="document.getElementById('catalog').scrollIntoView({behavior: 'smooth'})">
+                        Explorar Catálogo
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="history" class="history-section">
+            <div class="container">
+                <h2>Mi Historial de Búsquedas</h2>
+                <div class="history-controls">
+                    <button class="btn btn-outline" onclick="app.clearSearchHistory()">
+                        <i class="fas fa-trash"></i> Limpiar Historial
+                    </button>
+                </div>
+                <div id="searchHistoryList" class="history-list">
+                    <!-- El historial se cargará dinámicamente aquí -->
+                </div>
+                <div id="noHistory" class="no-results" style="display: none;">
+                    <i class="fas fa-history"></i>
+                    <p>No hay búsquedas en tu historial</p>
+                    <p>Comienza a explorar el catálogo para ver tu historial</p>
+                    <button class="btn btn-primary" onclick="document.getElementById('catalog').scrollIntoView({behavior: 'smooth'})">
+                        Explorar Catálogo
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="support" class="support-section">
+            <div class="container">
+                <h2>Soporte Técnico</h2>
+                <div class="support-content">
+                    <div class="support-info">
+                        <h3>¿Necesitas ayuda?</h3>
+                        <p>Nuestro equipo de soporte está aquí para ayudarte con cualquier consulta o problema que tengas.</p>
+                        <div class="support-stats">
+                            <div class="support-stat">
+                                <i class="fas fa-clock"></i>
+                                <span>Respuesta en 24h</span>
+                            </div>
+                            <div class="support-stat">
+                                <i class="fas fa-check-circle"></i>
+                                <span>99% resuelto</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="support-actions">
+                        <button class="btn btn-primary" onclick="app.showSupportTicketModal()">
+                            <i class="fas fa-plus"></i> Crear Nuevo Ticket
+                        </button>
+                        <button class="btn btn-outline" onclick="app.showUserTickets()">
+                            <i class="fas fa-ticket-alt"></i> Ver Mis Tickets
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="userTicketsList" class="tickets-list" style="display: none;">
+                    <h3>Mis Tickets de Soporte</h3>
+                    <div class="tickets-header">
+                        <div class="tickets-filters">
+                            <select id="ticketStatusFilter" onchange="app.filterUserTickets()">
+                                <option value="">Todos los estados</option>
+                                <option value="pendiente">Pendiente</option>
+                                <option value="en_proceso">En Proceso</option>
+                                <option value="resuelto">Resuelto</option>
+                            </select>
+                        </div>
+                        <div class="tickets-stats">
+                            <span id="totalTickets">0</span> tickets totales
+                        </div>
+                    </div>
+                    <div id="userTicketsContent">
+                        <!-- Los tickets se cargarán dinámicamente aquí -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section id="profile" class="profile-section">
+            <div class="container">
+                <h2>Mi Perfil</h2>
+                <div class="profile-content">
+                    <div class="profile-info">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="profile-details">
+                            <h3 id="profileName">Nombre del Usuario</h3>
+                            <p><i class="fas fa-envelope"></i> <span id="profileEmail">email@ejemplo.com</span></p>
+                            <p><i class="fas fa-user-tag"></i> <span id="profileRole">Cliente</span></p>
+                            <p><i class="fas fa-calendar"></i> Miembro desde <span id="profileDate">2024</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <h3>Acciones de Cuenta</h3>
+                        <button class="btn btn-outline" onclick="app.showChangePasswordModal()">
+                            <i class="fas fa-key"></i> Cambiar Contraseña
+                        </button>
+                        <button class="btn btn-outline" onclick="app.showSupportTicketModal()">
+                            <i class="fas fa-headset"></i> Contactar Soporte
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>EquipLink</h3>
+                    <p>Conectando el futuro de la medicina</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="#dashboard">Dashboard</a></li>
+                        <li><a href="#catalog">Catálogo</a></li>
+                        <li><a href="#favorites">Favoritos</a></li>
+                        <li><a href="#profile">Perfil</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Redes Sociales</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 EquipLink. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Detalles del Equipo -->
+    <div id="equipmentModal" class="modal">
+        <div class="modal-content equipment-modal">
+            <span class="close">&times;</span>
+            <div id="equipmentModalContent">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Cambio de Contraseña -->
+    <div id="changePasswordModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Cambiar Contraseña</h2>
+            <form id="changePasswordForm" class="auth-form">
+                <input type="password" id="currentPassword" placeholder="Contraseña actual" required>
+                <input type="password" id="newPassword" placeholder="Nueva contraseña" required>
+                <input type="password" id="confirmPassword" placeholder="Confirmar nueva contraseña" required>
+                <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Reseña -->
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Dejar Reseña</h2>
+            <form id="reviewForm" class="auth-form">
+                <div class="form-group">
+                    <label for="reviewRating">Calificación:</label>
+                    <select id="reviewRating" required>
+                        <option value="">Seleccionar calificación</option>
+                        <option value="1">1 estrella</option>
+                        <option value="2">2 estrellas</option>
+                        <option value="3">3 estrellas</option>
+                        <option value="4">4 estrellas</option>
+                        <option value="5">5 estrellas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reviewComment">Comentario:</label>
+                    <textarea id="reviewComment" placeholder="Escribe tu experiencia con este proveedor..." rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar Reseña</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Ticket de Soporte -->
+    <div id="supportTicketModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Crear Ticket de Soporte</h2>
+            <form id="supportTicketForm" class="auth-form">
+                <div class="form-group">
+                    <label for="ticketSubject">Asunto:</label>
+                    <input type="text" id="ticketSubject" placeholder="Describe brevemente tu problema..." required>
+                </div>
+                <div class="form-group">
+                    <label for="ticketMessage">Mensaje:</label>
+                    <textarea id="ticketMessage" placeholder="Describe detalladamente tu problema o consulta..." rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Crear Ticket</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Tickets del Usuario -->
+    <div id="userTicketsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Mis Tickets de Soporte</h2>
+            <div id="userTicketsContent">
+                <!-- Contenido dinámico -->
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="js/api.js"></script>
+    <script src="js/cliente.js"></script>
+</body>
+</html> 

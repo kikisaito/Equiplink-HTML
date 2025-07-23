@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Favoritos</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <link rel="stylesheet" href="favorito.css"> 
+</head>
+<body>
+    <header>
+        <h1>Gestión de Favoritos</h1>
+    </header>
+
+    <main>
+        <section class="form-section">
+            <h2>Añadir Nuevo Favorito</h2>
+            <form id="favoritoForm">
+                <div class="form-group">
+                    <label for="idUsuario">ID de Usuario:</label>
+                    <input type="number" id="idUsuario" required min="1">
+                </div>
+                <div class="form-group">
+                    <label for="idEquipo">ID de Equipo Médico:</label>
+                    <input type="number" id="idEquipo" required min="1">
+                </div>
+                <button type="submit" class="btn-primary">Guardar Favorito</button>
+            </form>
+        </section>
+
+        <section class="filter-section">
+            <h2>Filtrar Favoritos</h2>
+            <div class="form-group">
+                <label for="filterUsuarioId">Filtrar por ID de Usuario:</label>
+                <input type="number" id="filterUsuarioId" placeholder="Introduce ID de Usuario">
+                <button id="btnFilterUsuario" class="btn-primary btn-small">Buscar</button>
+                <button id="btnClearFilters" class="btn-edit btn-small">Mostrar Todos</button>
+            </div>
+            <div class="form-group">
+                <label for="filterEquipoId">Filtrar por ID de Equipo:</label>
+                <input type="number" id="filterEquipoId" placeholder="Introduce ID de Equipo">
+                <button id="btnFilterEquipo" class="btn-primary btn-small">Buscar</button>
+            </div>
+        </section>
+
+        <section class="table-section">
+            <h2>Lista de Favoritos</h2>
+            <table id="favoritosTable">
+                <thead>
+                    <tr>
+                        <th>ID Favorito</th>
+                        <th>ID Usuario</th>
+                        <th>ID Equipo</th>
+                        <th>Fecha Agregado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Mi Aplicación. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="favorito.js"></script>
+</body>
+</html>
