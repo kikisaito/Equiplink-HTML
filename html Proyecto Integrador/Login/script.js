@@ -15,9 +15,11 @@ function validarLogin() {
   const contrasena = document.getElementById("contrasena").value.trim();
   const errorCorreo = document.getElementById("errorCorreo");
   const errorContrasena = document.getElementById("errorContrasena");
+  const errorGeneral = document.getElementById("errorGeneral");
 
   errorCorreo.textContent = "";
   errorContrasena.textContent = "";
+  errorGeneral.textContent = "";
 
   let valido = true;
 
@@ -31,5 +33,29 @@ function validarLogin() {
     valido = false;
   }
 
-  return valido;
+  if (!valido) return false;
+
+  // Petición a la API
+  fetch("http://localhost:8000/api/usuarios/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ correo: correo, contrasena: contrasena })
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        // Redirigir a la página principal o dashboard
+        console.log("Login exitoso");
+        window.location.href = "./cliente/cliente.html";
+      } else {
+        errorGeneral.textContent = data.message || "Credenciales incorrectas";
+      }
+    })
+    .catch(error => {
+      errorGeneral.textContent = "Error de conexión con el servidor";
+    });
+
+  return false; // Prevenir el envío normal del formulario
 }
