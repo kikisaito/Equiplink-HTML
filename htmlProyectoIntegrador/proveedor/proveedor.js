@@ -195,7 +195,7 @@ class ProveedorApp {
             // Verificar que el usuario esté cargado
             if (!this.currentUser) {
                 console.log('Usuario no cargado, redirigiendo...');
-                window.location.href = 'index.html';
+                window.location.href = '../index.html';
                 return;
             }
             
@@ -241,18 +241,18 @@ class ProveedorApp {
                 // Verificar que el usuario sea un proveedor
                 if (this.currentUser.rol !== 'proveedor') {
                     console.log('Usuario no es proveedor, redirigiendo...');
-                    window.location.href = 'index.html';
+                    window.location.href = '../index.html';
                     return;
                 }
                 
                 this.updateUserInterface();
             } catch (error) {
                 console.error('Error al cargar datos del usuario:', error);
-                window.location.href = 'index.html';
+                window.location.href = '../index.html';
             }
         } else {
             console.log('No hay datos de usuario, redirigiendo...');
-            window.location.href = 'index.html';
+            window.location.href = '../index.html';
         }
     }
 
@@ -1333,7 +1333,7 @@ class ProveedorApp {
 
     logout() {
         localStorage.removeItem('currentUser');
-        window.location.href = 'index.html';
+        window.location.href = '../index.html';
     }
 
     showLoading() {

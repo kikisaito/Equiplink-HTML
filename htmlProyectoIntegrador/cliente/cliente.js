@@ -216,7 +216,7 @@ class ClienteApp {
             this.loadUserTickets();
         } else {
             // Si no hay usuario, redirigir al login
-            window.location.href = 'index.html';
+            window.location.href = '../index.html';
         }
     }
 
@@ -1164,7 +1164,7 @@ class ClienteApp {
 
     logout() {
         localStorage.removeItem('currentUser');
-        window.location.href = 'index.html';
+        window.location.href = '../index.html';
     }
 
     showLoading() {

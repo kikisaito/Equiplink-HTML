@@ -75,7 +75,7 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
       console.log("Login exitoso. Datos del usuario:", data);
       alert("¡Inicio de sesión exitoso!");
       // Redirigir a la página de cliente (asegúrate de que esta ruta sea correcta)
-      window.location.href = "/htmlProyectoIntegrador/Cliente/cliente.html"; 
+      window.location.href = "."; 
     })
     .catch(error => {
       // Capturar cualquier error que ocurra durante la petición o el procesamiento de la respuesta

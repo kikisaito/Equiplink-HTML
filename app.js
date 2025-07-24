@@ -431,7 +431,7 @@ class EquipLinkApp {
                     if (usuario.rol === 'proveedor') {
                         window.location.href = '../htmlProyectoIntegrador/proveedor/proveedor.html';
                     } else {
-                        window.location.href = 'cliente.html';
+                        window.location.href = '../htmlProyectoIntegrador/cliente/cliente.html';
                     }
                 }, 1000);
             } else {
@@ -470,7 +470,7 @@ class EquipLinkApp {
                 if (newUser.rol === 'proveedor') {
                     window.location.href = '../htmlProyectoIntegrador/proveedor/proveedor.html';
                 } else {
-                    window.location.href = 'cliente.html';
+                    window.location.href = '../htmlProyectoIntegrador/cliente/cliente.html';
                 }
             }, 1000);
             this.hideLoading();
